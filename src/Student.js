@@ -18,13 +18,28 @@ class Student extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id='studentImageWrapper'>
         <img src={this.props.pic} />
-        {this.props.firstName + " " + this.props.lastName}
-        {"Email: " + this.props.email}
-        {"Company: " + this.props.company}
-        {"Skill: " + this.props.skill}
-        {"Average: " + this.takeAverage(this.props.grades) + "%"}
+        <div id='studentNameAndDescription'>
+          <div id='nameStyle'>
+            {this.props.firstName + " " + this.props.lastName}
+          </div>
+
+          <div id='studentDescription'>
+            <div>
+              {"Email: " + this.props.email}
+            </div>
+            <div>
+              {"Company: " + this.props.company}
+            </div>
+            <div>
+              {"Skill: " + this.props.skill}
+            </div>
+            <div>
+              {"Average: " + this.takeAverage(this.props.grades) + "%"}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
