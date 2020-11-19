@@ -10,10 +10,29 @@ class App extends React.Component {
     super()
     this.state = {
       studentList: [],
+      givenInput: '', // typecasting
     }
+    this.handleSearch = this.handleSearch.bind(this);
+    this.filterStudents = this.filterStudents.bind(this);
   }
 
-  async componentDidMount() {
+  handleSearch(e) {
+    e.preventDefault();
+    this.setState({
+      givenInput: e.target.value
+    })
+  }
+
+  filterStudents(givenInput) {
+    console.log("did")
+    return (student) => (
+      student.firstName.toLowerCase().includes(givenInput.toLowerCase()) ||
+      student.lastName.toLowerCase().includes(givenInput.toLowerCase()) ||
+      !givenInput
+    )
+  }
+
+  componentDidMount() {
     /* If we were to do database stuff (although this assessment is
      * entirely front-end work), we'd need async if we were awaiting
      * API requests/responses from the database, and needed the rest of this
@@ -33,8 +52,11 @@ class App extends React.Component {
     return (
       <div className="App" >
         <header className="App-header">
+          <input type="text" onChange={this.handleSearch} placeholder='Search by name'
+            value={this.state.givenInput} />
           {
             this.state.studentList
+              .filter(this.filterStudents(this.state.givenInput))
               .map(
                 student => (
                   <Student
