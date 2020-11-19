@@ -21,11 +21,11 @@
   color: rgb(129, 129, 129);
   width: 55%;
   margin: auto;
-  padding: 1em;
   border-radius: 1em;
   overflow-y: scroll;
   height: 75vh;
   margin-top: 10vh;
+  box-shadow: 1px 1px 5px #888888;
 }
 
 .App-link {
@@ -63,6 +63,13 @@ img {
 #studentImageWrapper {
   display: flex;
   flex-direction: row;
+  padding: 1em;
+}
+
+#studentUnderscore {
+  border-bottom: 1px solid rgba(128, 128, 128, 0.103);
+  margin-right: -1em;
+  margin-left: -1em;
 }
 
 
