@@ -24,7 +24,6 @@ class App extends React.Component {
   }
 
   filterStudents(givenInput) {
-    console.log("did")
     return (student) => (
       student.firstName.toLowerCase().includes(givenInput.toLowerCase()) ||
       student.lastName.toLowerCase().includes(givenInput.toLowerCase()) ||

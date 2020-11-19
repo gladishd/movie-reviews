@@ -6,6 +6,11 @@ class Student extends React.Component {
   constructor() {
     super()
     this.state = {
+      on: false,
+      showPlusButton: true,
+      showMinusButton: false,
+      tagsInput: '',
+      tags: []
     }
     this.takeAverage = this.takeAverage.bind(this)
   }
