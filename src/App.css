@@ -48,6 +48,24 @@ img {
   font-size: 2em;
 }
 
+.searchInput {
+  font-size: 1.25em;
+  padding: 0.5em;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgba(160, 160, 160, 0.5);
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: rgba(160, 160, 160, 0.5);
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: rgba(160, 160, 160, 0.5);
+}
+
 #studentNameAndDescription, #studentDescription {
   display: flex;
   flex-direction: column;
@@ -58,12 +76,19 @@ img {
 #studentDescription {
   padding-top: 0.75em;
   padding-left: 0.75em;
+  padding-bottom: 0.75em;
 }
 
 #studentImageWrapper {
   display: flex;
   flex-direction: row;
   padding: 1em;
+}
+
+#studentButtonWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 #studentUnderscore {
@@ -79,9 +104,43 @@ input {
   font-size: 2em;
   border-bottom: 1px solid rgba(128, 128, 128, 0.363);
 }
+
 input:hover, input:active, input:focus {
   outline: none;
   border-bottom: 1px solid black;
+}
+
+.toggleExpansion {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 2em;
+  color: rgba(128, 128, 128, 0.637);
+  font-weight: bolder;
+  margin-right: 0.15em;
+  margin-top: 0.1em;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#testScores {
+  margin-left: 0.75em;
+}
+
+.inputNewTagsText {
+  font-size: 1em;
+}
+.allTagsDiv {
+  width: 40vw;
+}
+
+.studentTag {
+  background-color: rgba(128, 128, 128, 0.233);
+  color: black;
+  overflow-x: auto;
+  display: inline-block;
+  padding: 0.75em;
+  margin: 0.2em;
+  border-radius: 0.25em;
 }
 
 @keyframes App-logo-spin {

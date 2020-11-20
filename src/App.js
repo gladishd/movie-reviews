@@ -1,8 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
 import React from 'react';
 import Student from './Student';
-
 
 // refactored into a class component.
 class App extends React.Component {
@@ -10,25 +8,13 @@ class App extends React.Component {
     super()
     this.state = {
       studentList: [],
-      givenInput: '', // typecasting
+      givenStudentName: '',
+      givenTag: '' // typecasting to string
     }
     this.handleSearch = this.handleSearch.bind(this);
-    this.filterStudents = this.filterStudents.bind(this);
-  }
-
-  handleSearch(e) {
-    e.preventDefault();
-    this.setState({
-      givenInput: e.target.value
-    })
-  }
-
-  filterStudents(givenInput) {
-    return (student) => (
-      student.firstName.toLowerCase().includes(givenInput.toLowerCase()) ||
-      student.lastName.toLowerCase().includes(givenInput.toLowerCase()) ||
-      !givenInput
-    )
+    this.handleTagSearch = this.handleTagSearch.bind(this);
+    this.filterCallback = this.filterCallback.bind(this);
+    this.passStudentTagsToParent = this.passStudentTagsToParent.bind(this);
   }
 
   componentDidMount() {
@@ -42,30 +28,81 @@ class App extends React.Component {
     fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
-        console.log(data)
-        this.setState({ studentList: data.students })
+        let { students } = data;
+        students.forEach(student => (student.tags = []))
+        this.setState({ studentList: students })
       })
   }
+
+  passStudentTagsToParent(tags, studentId) {
+    let studentList = this.state.studentList;
+    studentList[studentId].tags = tags
+    this.setState({ studentList })
+  }
+
+  handleSearch(e) {
+    e.preventDefault();
+    this.setState({ givenStudentName: e.target.value })
+  }
+
+  handleTagSearch(e) {
+    e.preventDefault();
+    this.setState({ givenTag: e.target.value })
+  }
+
+  filterCallback(givenStudentName, givenStudentTag) {
+    return (student) => (
+      (
+        student.firstName.toLowerCase().includes(givenStudentName.toLowerCase()) ||
+        student.lastName.toLowerCase().includes(givenStudentName.toLowerCase()) ||
+        !givenStudentName
+      )
+      && // only results that include both the name and the tag should be shown
+      (
+        (
+          student.tags &&
+          student.tags.map(function (word) {
+            return word.toLowerCase();
+          }).join(' ').indexOf(givenStudentTag.toLowerCase()) !== -1
+        )
+        || !givenStudentTag
+      )
+    )
+  }
+
 
   render() {
     return (
       <div className="App" >
         <header className="App-header">
-          <input type="text" onChange={this.handleSearch} placeholder='Search by name'
-            value={this.state.givenInput} />
+          <input className='searchInput'
+            onChange={this.handleSearch}
+            placeholder='Search by name'
+            value={this.state.givenStudentName} />
+          <input className='searchInput'
+            onChange={this.handleTagSearch}
+            placeholder='Search by tag'
+            value={this.state.givenTag} />
           {
             this.state.studentList
-              .filter(this.filterStudents(this.state.givenInput))
+              .filter(this.filterCallback(this.state.givenStudentName, this.state.givenTag))
               .map(
-                student => (
+                (student, index) => (
                   <Student
+                    passStudentTagsToParent={this.passStudentTagsToParent}
+                    key={index}
+                    studentId={index}
                     pic={student.pic}
                     firstName={student.firstName}
                     lastName={student.lastName}
                     email={student.email}
                     company={student.company}
                     skill={student.skill}
-                    grades={student.grades} />
+                    grades={student.grades}
+                    tags={student.tags}
+                  // sometimes we're not rendering the child component,
+                  // so we have to pass it tags
+                  />
                 )
               )
           }
