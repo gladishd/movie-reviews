@@ -52,6 +52,28 @@ input:hover, input:active, input:focus {
   margin-top: 10vh;
 }
 
+@media only screen and (max-width: 600px) {
+  .App-header {
+    width: 95%;
+  }
+  #nameStyle {
+    font-size: 1em !important;
+  }
+  .searchInput {
+    font-size: 1em !important;
+  }
+  #studentDescription {
+    font-size: 0.5em;
+  }
+  .studentTag {
+    padding: 0.3em !important;
+    font-size: 0.6em !important;
+  }
+  #testScores {
+    font-size: 0.5em;
+  }
+}
+
 .searchInput {
   font-size: 1.25em;
   padding: 0.5em;
