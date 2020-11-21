@@ -2,7 +2,7 @@ import './App.css';
 import React from 'react';
 
 // refactored into a class component.
-class Student extends React.Component {
+class Item extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -60,7 +60,7 @@ class Student extends React.Component {
   takeAverage = (grades) => {
     let average = 0;
     for (let n of grades) { average += Number(n); }
-    return (average / grades.length);
+    return (average / grades.length).toFixed(1);
   }
 
   render() {
@@ -75,21 +75,21 @@ class Student extends React.Component {
               </div>
               <div id='studentDescription'>
                 <div>
-                  {"Email: " + this.props.email}
+                  {"Topic: " + this.props.email}
                 </div>
                 <div>
-                  {"Company: " + this.props.company}
+                  {"Producer: " + this.props.company}
                 </div>
                 <div>
-                  {"Skill: " + this.props.skill}
+                  {"Premiered: " + this.props.skill}
                 </div>
                 <div>
-                  {"Average: " + this.takeAverage(this.props.grades) + "%"}
+                  {"Average Rating: " + this.takeAverage(this.props.grades) + "%"}
                 </div>
               </div>
               {this.state.showAllTags &&
                 <div>
-                  {this.props.grades.map((score, i) => { return <div key={i} id='testScores'>Test {i}: &nbsp; &nbsp; {score}%</div> })}
+                  {this.props.grades.map((score, i) => { return <div key={i} id='testScores'>Rating {i}: &nbsp; &nbsp; {score}%</div> })}
                   <div className='allTagsDiv'>
                     {this.state.tagsForStudent && this.state.tagsForStudent.map((tag, index) => <div className='studentTag' key={index}>{tag}</div>)}
                   </div>
@@ -113,4 +113,4 @@ class Student extends React.Component {
   }
 }
 
-export default Student;
+export default Item;
